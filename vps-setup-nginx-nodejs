@@ -1,0 +1,81 @@
+apt update
+apt install nginx
+echo 'server {
+	listen 80;
+	location / {
+		proxy_pass http://localhost:3000;
+		proxy_set_header Host $host;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	}
+}' > /etc/nginx/sites-enabled/app
+
+unlink /etc/nginx/sites-enabled/default
+
+systemctl restart nginx
+
+systemctl enable nginx
+
+ufw allow 'Nginx HTTP'
+
+nginx -t
+
+
+# install git
+sudo apt install git
+
+
+# install nodejs
+sudo apt install nodejs
+
+# install npm
+sudo apt install npm
+
+# install pm2 express nodemon 
+sudo npm install pm2 express nodemon -g
+
+
+
+# Configure git
+git config --global user.name "Bella Abdelouahab"
+git config --global user.email "abdobella977@gmail.com"
+
+
+# Create a directory to hold the production code
+mkdir /root/production
+git init /root/production
+
+
+# Create a bare repository
+mkdir /root/production/.git
+git init --bare /root/production/.git
+
+# Create a post-receive hook
+echo '#!/bin/sh
+git --work-tree=/root/production/ --git-dir=/root/production/.git checkout -f
+
+cd /root/production
+
+
+echo "Instaling Dependencies"
+
+npm install
+
+
+echo "Building Project"
+
+npm run build
+
+
+echo "Restarting Server"
+
+pm2 restart all
+
+
+echo "Deployed successfully"
+
+' > /root/production/.git/hooks/post-receive
+
+chmod a+x /root/production/.git/hooks/post-receive
+
+
+
