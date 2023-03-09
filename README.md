@@ -2,7 +2,7 @@
 
 <p align="center">
     <img src="https://github.com/bellaabdelouahab/To-Clean/blob/main/logo.jpg" height="350" style="border-radius: 50%;">
-    <div style="background:url('https://github.com/bellaabdelouahab/To-Clean/blob/main/logo.jpg')"/>
+    <div style="background:url('https://github.com/bellaabdelouahab/To-Clean/blob/main/logo.jpg');height:200px;width:200px;display:block"/>
 </p>
 
 A website designed to help students organize their homework, exams, and projects in a timeline form. Students can easily keep track of their upcoming assignments, exams, and projects and collaborate with others.
